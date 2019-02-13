@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace CSharpDesignPatterns
 
 {
-    public class Downhil : AbstractRoadBike
+    public class Downhill : AbstractMountainBike
     {
 
         public Downhill(IWheel wheel)
-           : this(BikeColor.Green, wheel)
+           : this(BikeColor.Chrome, wheel)
         {
 
         }
