@@ -5,17 +5,64 @@ using System.Text;
 using System.Threading.Tasks;
 using AbstractFactory;
 using Builder;
+using Singleton;
+using Adaptor;
+using Decorator;
 
 namespace CSharpDesignPatterns
 {
     class Program
     {
         static void Main(string[] args)
-        { 
-
-
-            BuilderPatternDemo();
+        {
+            DecoratorPatternDemo();
+            // AdapterPatternDemo();
+            // SingletonPatternDemo();
+            // BuilderPatternDemo();
             // AbstractFactoryDemo();
+
+        }
+
+        private static void DecoratorPatternDemo()
+        {
+            //Standard Touring Bike
+            IBicycle myTourbike = new Touring(new Narrowwheel(24));
+            Console.WriteLine(myTourbike);
+
+            // Touring bike with custom grips
+            myTourbike = new CustomeGripOption(myTourbike);
+            Console.WriteLine(myTourbike);
+
+            // Touring bike with leather seat
+            myTourbike = new LeatherSeatOption(myTourbike);
+            Console.WriteLine(myTourbike);
+        }
+             
+
+        private static void AdapterPatternDemo()
+        {
+            IList<IWheel> wheels = new List<IWheel>();
+            wheels.Add(new Narrowwheel(24));
+            wheels.Add(new WideWheel(20));
+            wheels.Add(new Narrowwheel(26));
+            wheels.Add(new UltraWheelAdaptor(new UltraWheel(28)));
+
+
+            foreach (IWheel wheel in wheels)
+            {
+                Console.WriteLine(wheel);
+            }
+
+
+        }
+
+        public static void SingletonPatternDemo()
+        {
+            SerialNumberGenerator generator = SerialNumberGenerator.Instance;
+
+            Console.WriteLine("next serial "+ generator.NextSerial);
+            Console.WriteLine("next serial "+ SerialNumberGenerator.Instance.NextSerial);
+            Console.WriteLine("next serial "+ generator.NextSerial);
         }
 
         private static void BuilderPatternDemo()

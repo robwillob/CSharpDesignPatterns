@@ -10,6 +10,8 @@ namespace CSharpDesignPatterns
     public class Downhill : AbstractMountainBike
     {
 
+        public override decimal Price { get; } = 870.00m;
+
         public Downhill(IWheel wheel)
            : this(BikeColor.Chrome, wheel)
         {

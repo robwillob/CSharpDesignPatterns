@@ -10,6 +10,8 @@ namespace CSharpDesignPatterns
     public class CrossCountry : AbstractRoadBike
     {
 
+        public override decimal Price { get; } = 850.00m;
+
         public CrossCountry(IWheel wheel)
            : this(BikeColor.Pink, wheel)
         {
