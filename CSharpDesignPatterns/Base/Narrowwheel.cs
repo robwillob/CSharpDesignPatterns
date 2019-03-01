@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace CSharpDesignPatterns
 
 {
-    public class Narrowwheel : AbstractWheel
+    public class NarrowWheel : AbstractWheel
     {
-        public Narrowwheel(int size) : base(size, false) { }
+        public NarrowWheel(int size) : base(size, false) { }
     }
 }

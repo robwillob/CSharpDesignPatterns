@@ -8,6 +8,10 @@ using Builder;
 using Singleton;
 using Adaptor;
 using Decorator;
+using Facade;
+using Iterator;
+using System.Collections;
+using Observer;
 
 namespace CSharpDesignPatterns
 {
@@ -15,7 +19,11 @@ namespace CSharpDesignPatterns
     {
         static void Main(string[] args)
         {
-            DecoratorPatternDemo();
+            ObserverPatternDemo();
+            // IteratorPatternDemo2();
+            // IteratorPatternDemo();
+            // FacadePatternDemo();
+            // DecoratorPatternDemo();
             // AdapterPatternDemo();
             // SingletonPatternDemo();
             // BuilderPatternDemo();
@@ -23,10 +31,71 @@ namespace CSharpDesignPatterns
 
         }
 
+        private static void ObserverPatternDemo()
+        {
+            Speedometer mySpeedometer = new Speedometer();
+            SpeedMonitor monitor = new SpeedMonitor(mySpeedometer);
+            GearBox gearbox = new GearBox(mySpeedometer);
+
+            // Set current speed property to a value
+            mySpeedometer.CurrentSpeed = 10;
+            mySpeedometer.CurrentSpeed = 20;
+            mySpeedometer.CurrentSpeed = 25;
+            mySpeedometer.CurrentSpeed = 30;
+            mySpeedometer.CurrentSpeed = 35;
+        }
+
+        private static void IteratorPatternDemo2()
+        {
+            Console.WriteLine("=== Road Bikes ===");
+            RoadBikeRange roadRange = new RoadBikeRange();
+            foreach (IBicycle bicycle in roadRange.Range)
+            {
+                Console.WriteLine(bicycle);
+            }
+
+            Console.WriteLine("=== Mountain Bikes ===");
+            MountainBikeRange mountainRange = new MountainBikeRange();
+            foreach (IBicycle bicycle in mountainRange.Range)
+            {
+                Console.WriteLine(bicycle);
+            }
+        }
+
+        private static void IteratorPatternDemo()
+        {
+            Console.WriteLine("=== Road Bikes ===");
+            RoadBikeRange roadRange = new RoadBikeRange();
+            PrintIterator(roadRange.GetEnumerator());
+
+            Console.WriteLine("=== Mountain Bikes ===");
+            MountainBikeRange mountainRange = new MountainBikeRange();
+            PrintIterator(mountainRange.GetEnumerator());
+        }
+
+        private static void PrintIterator(IEnumerator iter)
+        {
+            while(iter.MoveNext())
+            {
+                Console.WriteLine(iter.Current);
+            }
+
+        }
+
+
+        /* Facade Design Pattern Method */
+        private static void FacadePatternDemo()
+        {
+            BikeFacade facade = new BikeFacade();
+            facade.PrepareForSale(new Downhill(BikeColor.Red, new WideWheel(20)));
+        }
+
         private static void DecoratorPatternDemo()
+
+
         {
             //Standard Touring Bike
-            IBicycle myTourbike = new Touring(new Narrowwheel(24));
+            IBicycle myTourbike = new Touring(new NarrowWheel(24));
             Console.WriteLine(myTourbike);
 
             // Touring bike with custom grips
@@ -42,9 +111,9 @@ namespace CSharpDesignPatterns
         private static void AdapterPatternDemo()
         {
             IList<IWheel> wheels = new List<IWheel>();
-            wheels.Add(new Narrowwheel(24));
+            wheels.Add(new NarrowWheel(24));
             wheels.Add(new WideWheel(20));
-            wheels.Add(new Narrowwheel(26));
+            wheels.Add(new NarrowWheel(26));
             wheels.Add(new UltraWheelAdaptor(new UltraWheel(28)));
 
 
